@@ -39,14 +39,16 @@ import static java.lang.System.Logger.Level.WARNING;
  */
 public class NMEAMessageHandler implements Consumer<NMEAMessage> {
 
+	private final boolean ITU_COMPLIANT;
 	private static final System.Logger LOG = System.getLogger(NMEAMessageHandler.class.getName());
 
 	private final String source;
     private final ArrayList<NMEAMessage> messageFragments = new ArrayList<>();
     private final List<Consumer<? super AISMessage>> aisMessageReceivers = new LinkedList<>();
 
-    public NMEAMessageHandler(String source, Consumer<? super AISMessage>... aisMessageReceivers) {
+    public NMEAMessageHandler(boolean itu_compliant, String source, Consumer<? super AISMessage>... aisMessageReceivers) {
     	this.source = source;
+		this.ITU_COMPLIANT = itu_compliant;
         for (Consumer<? super AISMessage> aisMessageReceiver : aisMessageReceivers) {
             addAisMessageReceiver(aisMessageReceiver);
         }
@@ -71,7 +73,7 @@ public class NMEAMessageHandler implements Consumer<NMEAMessage> {
 			messageFragments.clear();
 		} else if (numberOfFragments == 1) {
 			LOG.log(DEBUG, "Handling unfragmented NMEA message");
-            AISMessage aisMessage = AISMessage.create(new Metadata(source), nmeaMessage.getTagBlock(), nmeaMessage);
+            AISMessage aisMessage = AISMessage.create(ITU_COMPLIANT, new Metadata(source), nmeaMessage.getTagBlock(), nmeaMessage);
             sendToAisMessageReceivers(aisMessage);
 			messageFragments.clear();
 		} else {
@@ -95,7 +97,7 @@ public class NMEAMessageHandler implements Consumer<NMEAMessage> {
 					LOG.log(DEBUG, "nmeaMessage.getNumberOfFragments(): " + nmeaMessage.getNumberOfFragments());
 					LOG.log(DEBUG, "messageFragments.size(): " + messageFragments.size());
 					if (nmeaMessage.getNumberOfFragments() == messageFragments.size()) {
-                        AISMessage aisMessage = AISMessage.create(new Metadata(source), nmeaMessage.getTagBlock(), messageFragments.toArray(new NMEAMessage[messageFragments.size()]));
+                        AISMessage aisMessage = AISMessage.create(ITU_COMPLIANT, new Metadata(source), nmeaMessage.getTagBlock(), messageFragments.toArray(new NMEAMessage[messageFragments.size()]));
                         sendToAisMessageReceivers(aisMessage);
 						messageFragments.clear();
 					} else

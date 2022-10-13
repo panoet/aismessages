@@ -53,6 +53,7 @@ import static java.util.Objects.requireNonNull;
  */
 @SuppressWarnings("serial")
 public abstract class AISMessage implements Serializable, CachedDecodedValues {
+    protected static boolean ITU_COMPLIANT;
 
     private transient static final System.Logger LOG = System.getLogger(AISMessage.class.getName());
 
@@ -346,8 +347,14 @@ public abstract class AISMessage implements Serializable, CachedDecodedValues {
      * @return AISMessage the AIS message
      * @throws InvalidMessage if the AIS payload of the NMEAmessage(s) is invalid
      */
+
     public static AISMessage create(Metadata metadata, NMEAMessage... nmeaMessages) {
-        AISMessage aisMessage = create(nmeaMessages);
+        return create(true, metadata, nmeaMessages);
+    }
+
+    public static AISMessage create(boolean itu_compliant, Metadata metadata, NMEAMessage... nmeaMessages) {
+        ITU_COMPLIANT = itu_compliant;
+        AISMessage aisMessage = create(ITU_COMPLIANT, nmeaMessages);
         aisMessage.setMetadata(metadata);
         return aisMessage;
     }
@@ -363,7 +370,12 @@ public abstract class AISMessage implements Serializable, CachedDecodedValues {
      * @throws InvalidMessage if the AIS payload of the NMEAmessage(s) is invalid
      */
     public static AISMessage create(Metadata metadata, NMEATagBlock nmeaTagBlock, NMEAMessage... nmeaMessages) {
-        AISMessage aisMessage = create(nmeaMessages);
+        return create(true, metadata, nmeaTagBlock, nmeaMessages);
+    }
+
+    public static AISMessage create(boolean itu_compliant, Metadata metadata, NMEATagBlock nmeaTagBlock, NMEAMessage... nmeaMessages) {
+        ITU_COMPLIANT = itu_compliant;
+        AISMessage aisMessage = create(itu_compliant, nmeaMessages);
         aisMessage.setTagBlock(nmeaTagBlock);
         aisMessage.setMetadata(metadata);
         return aisMessage;
@@ -376,7 +388,12 @@ public abstract class AISMessage implements Serializable, CachedDecodedValues {
      * @return AISMessage the AIS message
      * @throws InvalidMessage if the AIS payload of the NMEAmessage(s) is invalid
      */
+
     public static AISMessage create(NMEAMessage... nmeaMessages) {
+        return create(true, nmeaMessages);
+    }
+    public static AISMessage create(boolean itu_compliant, NMEAMessage... nmeaMessages) {
+        ITU_COMPLIANT = itu_compliant;
         BiFunction<NMEAMessage[], String, AISMessage> aisMessageConstructor;
 
         String bitString = decodePayloadToBitString(nmeaMessages);

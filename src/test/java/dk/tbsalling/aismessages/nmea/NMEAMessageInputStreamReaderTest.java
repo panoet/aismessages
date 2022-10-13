@@ -19,7 +19,7 @@ public class NMEAMessageInputStreamReaderTest {
 
     @BeforeAll
     public static void setUp() {
-        nmeaMessageHandler = new NMEAMessageHandler("TEST");
+        nmeaMessageHandler = new NMEAMessageHandler(true, "TEST");
     }
 
     @Test

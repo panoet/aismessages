@@ -51,8 +51,13 @@ public class BaseStationReport extends AISMessage {
 
         final int numberOfBits = getNumberOfBits();
 
-        if (numberOfBits != 168)
-            errorMessage.append(format("Message of type %s should be at exactly 168 bits long; not %d.", getMessageType(), numberOfBits));
+        if(ITU_COMPLIANT) {
+            if (numberOfBits != 168)
+                errorMessage.append(format("Message of type %s should be at exactly 168 bits long; not %d.", getMessageType(), numberOfBits));
+        } else {
+            if (numberOfBits < 168)
+                errorMessage.append(format("Message of type %s should be at least 168 bits long; not %d.", getMessageType(), numberOfBits));
+        }
 
         if (errorMessage.length() > 0) {
             if (numberOfBits >= 38)

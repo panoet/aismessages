@@ -15,7 +15,7 @@ public class AidToNavigationReportTest {
 
     @Test
     public void canDecode1() {
-        AISMessage aisMessage = AISMessage.create(NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;Lqaps0h3V:@;4a:@0b7W005J`6Dq9e<000003v010,4*7E"));
+        AISMessage aisMessage = AISMessage.create(true, NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;Lqaps0h3V:@;4a:@0b7W005J`6Dq9e<000003v010,4*7E"));
 
         System.out.println(aisMessage.toString());
 
@@ -43,7 +43,7 @@ public class AidToNavigationReportTest {
 
     @Test
     public void canDecode2() {
-        AISMessage aisMessage = AISMessage.create(NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;MIas0h3V:@;4a::h0b7W005Jh4nq:3l800003v010,4*08"));
+        AISMessage aisMessage = AISMessage.create(true, NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;MIas0h3V:@;4a::h0b7W005Jh4nq:3l800003v010,4*08"));
         System.out.println(aisMessage.toString());
 
         assertEquals(AISMessageType.AidToNavigationReport, aisMessage.getMessageType());
@@ -70,7 +70,7 @@ public class AidToNavigationReportTest {
 
     @Test
     public void testDataFields() {
-        AISMessage aisMessage = AISMessage.create(NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;MIas0h3V:@;4a::h0b7W005Jh4nq:3l800003v010,4*08"));
+        AISMessage aisMessage = AISMessage.create(true, NMEAMessage.fromString("!AIVDO,1,1,,A,E>lt;MIas0h3V:@;4a::h0b7W005Jh4nq:3l800003v010,4*08"));
         Map<String, Object> dataFields = aisMessage.dataFields();
 
         assertNotNull(dataFields);

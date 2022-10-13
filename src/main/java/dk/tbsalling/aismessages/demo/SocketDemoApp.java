@@ -38,7 +38,7 @@ public class SocketDemoApp implements Consumer<AISMessage> {
 
 		try {
 			// NMEAMessageSocketClient nmeaMessageHandler = new NMEAMessageSocketClient("207.7.148.216", 9009, new NMEAMessageHandler("DEMOSRC1", this));
-			NMEAMessageSocketClient nmeaMessageHandler = new NMEAMessageSocketClient("ais.exploratorium.edu", 80, new NMEAMessageHandler("DEMOSRC1", this));
+			NMEAMessageSocketClient nmeaMessageHandler = new NMEAMessageSocketClient("ais.exploratorium.edu", 80, new NMEAMessageHandler(true,"DEMOSRC1", this));
 			nmeaMessageHandler.run();
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + e.getMessage());

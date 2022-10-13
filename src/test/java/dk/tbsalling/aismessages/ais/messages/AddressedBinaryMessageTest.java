@@ -14,7 +14,7 @@ public class AddressedBinaryMessageTest {
 
     @Test
     public void canDecode() {
-        AISMessage aisMessage = AISMessage.create(NMEAMessage.fromString("!ABVDM,1,1,,B,63M@g840SJL`01lSk09w1IMK?00100803Pp03g8p001pTaIK00,4*56"));
+        AISMessage aisMessage = AISMessage.create(true, NMEAMessage.fromString("!ABVDM,1,1,,B,63M@g840SJL`01lSk09w1IMK?00100803Pp03g8p001pTaIK00,4*56"));
 
         System.out.println(aisMessage.toString());
 
@@ -30,7 +30,7 @@ public class AddressedBinaryMessageTest {
 
     @Test
     public void canDecodeAsmNumberOfPersonsOnboard() {
-        AISMessage aisMessage = AISMessage.create(NMEAMessage.fromString("!AIVDM,1,1,,B,63bump80OEGr06P060,4*79"));
+        AISMessage aisMessage = AISMessage.create(true, NMEAMessage.fromString("!AIVDM,1,1,,B,63bump80OEGr06P060,4*79"));
         System.out.println(aisMessage.toString());
 
         assertTrue(aisMessage instanceof AddressedBinaryMessage);

@@ -29,7 +29,7 @@ public class NMEAMessageHandlerTest {
     @BeforeAll
     public static void setUp() {
         aisMessageHandler = (Consumer<AISMessage>) context.mock(Consumer.class);
-        aisMessageReceiver = new NMEAMessageHandler("TEST", aisMessageHandler);
+        aisMessageReceiver = new NMEAMessageHandler(true, "TEST", aisMessageHandler);
     }
 
     @Test

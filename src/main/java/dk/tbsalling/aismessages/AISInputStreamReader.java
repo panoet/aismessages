@@ -35,13 +35,13 @@ import java.util.function.Consumer;
  */
 public class AISInputStreamReader {
 
-    public AISInputStreamReader(List<String> stringQueue, Consumer<? super AISMessage> aisMessageConsumer) {
-        this.nmeaMessageHandler = new NMEAMessageHandler("SRC", aisMessageConsumer);
+    public AISInputStreamReader(boolean itu_compliant, List<String> stringQueue, Consumer<? super AISMessage> aisMessageConsumer) {
+        this.nmeaMessageHandler = new NMEAMessageHandler(itu_compliant, "SRC", aisMessageConsumer);
         this.nmeaMessageInputStreamReader = new NMEAMessageInputStreamReader(stringQueue, this.nmeaMessageHandler::accept);
     }
 
-    public AISInputStreamReader(InputStream inputStream, Consumer<? super AISMessage> aisMessageConsumer) {
-        this.nmeaMessageHandler = new NMEAMessageHandler("SRC", aisMessageConsumer);
+    public AISInputStreamReader(boolean itu_compliant, InputStream inputStream, Consumer<? super AISMessage> aisMessageConsumer) {
+        this.nmeaMessageHandler = new NMEAMessageHandler(itu_compliant,"SRC", aisMessageConsumer);
         this.nmeaMessageInputStreamReader = new NMEAMessageInputStreamReader(inputStream, this.nmeaMessageHandler::accept);
     }
 

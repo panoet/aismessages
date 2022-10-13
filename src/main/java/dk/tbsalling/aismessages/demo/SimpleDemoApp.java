@@ -31,7 +31,7 @@ public class SimpleDemoApp {
         System.out.println("AISMessages Demo App");
         System.out.println("--------------------");
 
-        AISInputStreamReader streamReader = new AISInputStreamReader(inputStream, aisMessage ->
+        AISInputStreamReader streamReader = new AISInputStreamReader(true, inputStream, aisMessage ->
                 System.out.println("Received AIS message from MMSI " + aisMessage.getSourceMmsi().getMMSI() + ": " + aisMessage)
         );
 

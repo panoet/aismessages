@@ -35,13 +35,15 @@ public class MMSI implements Serializable {
         return "MMSI [mmsi=" + mmsi + "]";
     }
 
-    @Deprecated(forRemoval = true)
     public Integer getMMSI() {
         return Integer.valueOf(mmsi);
     }
 
     public int intValue() {
         return mmsi;
+    }
+    public String asString() {
+        return String.valueOf(mmsi);
     }
 
     public String as9DigitString() {
