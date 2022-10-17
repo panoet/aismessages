@@ -46,8 +46,8 @@ public class AISInputStreamReader {
         this.nmeaMessageInputStreamReader = new NMEAMessageInputStreamReader(inputStream, this.nmeaMessageHandler::accept);
     }
 
-    public AISInputStreamReader(InputStream inputStream, Function<String, String> nmeaStringPreProcessor, Consumer<? super AISMessage> aisMessageConsumer) {
-        this.nmeaMessageHandler = new NMEAMessageHandler("SRC", aisMessageConsumer);
+    public AISInputStreamReader(boolean itu_compliant, InputStream inputStream, Function<String, String> nmeaStringPreProcessor, Consumer<? super AISMessage> aisMessageConsumer) {
+        this.nmeaMessageHandler = new NMEAMessageHandler(itu_compliant, "SRC", aisMessageConsumer);
         this.nmeaMessageInputStreamReader = new NMEAMessageInputStreamReader(inputStream, nmeaStringPreProcessor, this.nmeaMessageHandler::accept);
     }
 

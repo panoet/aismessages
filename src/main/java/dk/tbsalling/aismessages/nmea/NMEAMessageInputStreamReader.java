@@ -104,6 +104,10 @@ public class NMEAMessageInputStreamReader {
 				LOG.log(WARNING, "Received unsupported NMEA message: \"" + string + "\"");
 			} catch (NMEAParseException parseException) {
 				LOG.log(WARNING, "Received non-compliant NMEA message: \"" + string + "\"");
+			} catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+				LOG.log(WARNING, "Catch index out of bound exception: \"" + string + "\"");
+			} catch (Exception exception) {
+				LOG.log(WARNING, "Catch unknown exception: \"" + string + "\"");
 			}
 		}
 
