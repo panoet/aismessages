@@ -95,15 +95,9 @@ public class NMEAMessageInputStreamReader {
 			string = nmeaMessagePreProcessor.apply(string);
 
 			try {
-				String finalString = string;
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						NMEAMessage nmea = NMEAMessage.fromString(finalString);
-						nmeaMessageHandler.accept(nmea);
-						LOG.log(DEBUG, "Received: " + nmea.toString());
-					}
-				}).start();
+				NMEAMessage nmea = NMEAMessage.fromString(string);
+				nmeaMessageHandler.accept(nmea);
+				LOG.log(DEBUG, "Received: " + nmea.toString());
 			} catch (InvalidMessage invalidMessageException) {
 				LOG.log(WARNING, "Received invalid AIS message: \"" + string + "\"");
 			} catch (UnsupportedMessageType unsupportedMessageTypeException) {
