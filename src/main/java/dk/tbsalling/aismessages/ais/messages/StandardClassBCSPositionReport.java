@@ -55,7 +55,7 @@ public class StandardClassBCSPositionReport extends AISMessage implements Extend
             if (numberOfBits != 168)
                 errorMessage.append(format("Message of type %s should be at exactly 168 bits long; not %d.", getMessageType(), numberOfBits));
         } else {
-            if (numberOfBits < 168)
+            if (numberOfBits < 162)
                 errorMessage.append(format("Message of type %s should be at least 168 bits long; not %d.", getMessageType(), numberOfBits));
         }
         if (errorMessage.length() > 0) {
