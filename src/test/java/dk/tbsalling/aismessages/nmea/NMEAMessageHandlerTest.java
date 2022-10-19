@@ -15,8 +15,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class NMEAMessageHandlerTest {
@@ -29,12 +28,15 @@ public class NMEAMessageHandlerTest {
     @BeforeAll
     public static void setUp() {
         aisMessageHandler = (Consumer<AISMessage>) context.mock(Consumer.class);
-        aisMessageReceiver = new NMEAMessageHandler(true, "TEST", aisMessageHandler);
+        aisMessageReceiver = new NMEAMessageHandler(false, "TEST", aisMessageHandler);
     }
 
     @Test
     public void a_canHandleUnfragmentedMessageReceived() {
-        NMEAMessage unfragmentedNMEAMessage = NMEAMessage.fromString("!AIVDM,1,1,,B,15MqdBP000G@qoLEi69PVGaN0D0=,0*3A");
+        String message = "!AIVDM,1,1,,,36TUr61001W@Q6<0vRWU7UG40000,0*6C";
+        NMEAMessage unfragmentedNMEAMessage = NMEAMessage.fromString(message);
+
+//        NMEAMessage unfragmentedNMEAMessage = NMEAMessage.fromString("!AIVDM,1,1,,B,15MqdBP000G@qoLEi69PVGaN0D0=,0*3A");
 
         final ArgumentCaptor<AISMessage> aisMessage = new ArgumentCaptor<>();
 
@@ -44,7 +46,8 @@ public class NMEAMessageHandlerTest {
 
         aisMessageReceiver.accept(unfragmentedNMEAMessage);
 
-        assertEquals(AISMessageType.PositionReportClassAScheduled, aisMessage.getCapturedObject().getMessageType());
+//        assertEquals(AISMessageType.PositionReportClassAScheduled, aisMessage.getCapturedObject().getMessageType());
+        assertEquals(AISMessageType.PositionReportClassAResponseToInterrogation, aisMessage.getCapturedObject().getMessageType());
     }
 
     @Test

@@ -71,10 +71,10 @@ public class NMEAMessageInputStreamReader {
 			try {
 				return bufferedReader.readLine();
 			} catch (IOException e) {
-				System.err.println("Error in buffered reader @NMEAMessageInputStreamReader class");
-				e.printStackTrace();
-				return null;
-//				throw new RuntimeException(e.getMessage(), e);
+//				System.err.println("Error in buffered reader @NMEAMessageInputStreamReader class");
+//				e.printStackTrace();
+//				return null;
+				throw new RuntimeException(e.getMessage(), e);
 			}
 		};
 	}
